@@ -1,0 +1,44 @@
+.top-row {
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0px 30px;
+}
+
+.top-row img {
+  width: 0.6rem;
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+.bottom-row {
+  width: 70vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-items {
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 550;
+  align-items: center;
+}
+.nav-items > div {
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.nav-items img {
+  width: 0.8rem;
+  margin: 5px 5px;
+  vertical-align: middle;
+}
+
+.bottom-row h2 {
+  font-weight: bolder;
+}

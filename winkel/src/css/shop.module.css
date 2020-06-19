@@ -1,0 +1,64 @@
+.shop {
+  min-width: 1100px;
+  width: 70vw;
+  display: flex;
+  margin: 50px auto;
+}
+
+.head {
+  background: url('../icons/bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-clip: content-box;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.head h1 {
+  font-weight: 900;
+  font-size: 3rem;
+}
+
+.head p {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+/* LEFT COL */
+
+.left-col {
+  width: 300px;
+}
+
+.left-col h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 50px;
+}
+
+.left-col div:first-child h2 {
+  margin-top: 20px;
+}
+
+.left-col p {
+  border-radius: 20px;
+  padding: 1px 3px;
+  line-height: 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.left-col p:hover {
+  background-color: #f8f8f8;
+}
+
+/* RIGHT COL */
+
+.right-col {
+  width: 100%;
+}

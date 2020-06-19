@@ -6,6 +6,8 @@ import instagramSvg from '../icons/instagram.svg'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+AOS.init()
+
 const Footer = () => {
     return (
         <div style={{ backgroundColor: '#f7f7f7' }} className={styles['footer']}>

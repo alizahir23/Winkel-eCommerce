@@ -3,7 +3,6 @@
   display: flex;
   justify-content: space-around;
   color: white;
-  font-size: 0.65rem;
   font-weight: 600;
   padding: 0px 30px;
 }
@@ -12,6 +11,11 @@
   width: 0.6rem;
   margin: 0 5px;
   vertical-align: middle;
+}
+
+.top-row p {
+  margin: 0 0;
+  font-size: 0.7rem;
 }
 
 .bottom-row {

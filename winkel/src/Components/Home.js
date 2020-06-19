@@ -98,7 +98,7 @@ const Home = () => {
                 <h1>Best Sellers</h1>
                 <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
             </div> */}
-            <div style={{ width: '70vw', margin: '30px auto' }} className={styles['new-collection']}>
+            <div style={{ margin: '30px auto' }} className={styles['new-collection']}>
                 <div className={styles['collection-top']}>
                     <img src={newWomanJpg} alt="woman" />
                     <div>

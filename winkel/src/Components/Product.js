@@ -4,12 +4,12 @@ import manJpg from '../icons/man.jpg'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+
 AOS.init();
 
 const Product = ({ match }) => {
 
     const [Quantity, setQuantity] = useState(1);
-
     const handleChange = (e) => {
         setQuantity(e.target.value);
     }

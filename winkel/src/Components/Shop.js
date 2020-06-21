@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../css/shop.module.css'
+import firebase from '../config/Firebase'
+
 
 
 const Shop = () => {
+
+    const [Loading, setLoading] = useState(true)
+    const [Products, setProducts] = useState(null)
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+    const [img, setImage] = useState(null)
+
+
+    useEffect(() => {
+        storage.ref('products').child('man.jpg').getDownloadURL().then(url => {
+            setImage(url)
+            console.log(url)
+        })
+        setLoading(false)
+    }, [])
+
+
+    db.collection('products').get().then((result) => {
+        setProducts(result.docs)
+
+    })
+
+
     return (
         <div>
             <div className={styles.head}>
@@ -49,7 +74,19 @@ const Shop = () => {
                     </div>
                 </div>
                 <div className={styles['right-col']}>
-                    <Link to={'/shop/1232'}>Product 1232</Link>
+                    {Loading && <p>Loading</p>}
+                    {Products && Products.map(product => {
+
+
+                        return (
+                            <div>
+                                {/* <p>{product.data().name}</p>
+                                <p>{product.data().price}</p> */}
+
+                                {/* <img src={img || "https://via.placeholder.com/400x300"} alt="man" height="300" width="400" /> */}
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </div>

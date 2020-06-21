@@ -38,30 +38,30 @@ const Home = () => {
             <div className={styles['display']}>
                 {Display === 1 &&
                     <div className={styles['display-slides']}>
-                        <div className={styles['display-left-col']}>
+                        <div className={styles['display-left-col']} className={styles['display-left-col-1']}>
                             <div data-aos="fade-right" data-aos-duration="1000">
 
                                 <h1 style={{ fontSize: '3rem', fontWeight: '500' }}>Catch Your Own <div style={{ fontWeight: 'bold' }}>Stylish Look</div></h1>
-                                <p>A small inspirational designs taken from the niagra falls is the blue color which we implied into the jacket.</p>
+                                <p style={{ fontSize: '1.2rem' }}>A small inspirational designs taken from the niagra falls is the blue color which we implied into the jacket.</p>
                                 <button>Discover Now</button>
 
                             </div>
                         </div>
-                        <div className={styles['display-right-col']}><img src={manJpg} alt="man" /></div>
+                        <div data-aos='fade-left' data-aos-duration="1000" className={styles['display-right-col']}><img src={manJpg} alt="man" /></div>
                     </div>
                 }
                 {Display === 2 &&
                     <div className={styles['display-slides']}>
-                        <div className={styles['display-left-col']}>
+                        <div className={styles['display-left-col']} className={styles['display-left-col-2']}>
                             <div data-aos="fade-right" data-aos-duration="1000">
 
                                 <h1 style={{ fontSize: '3rem', fontWeight: '500' }}>A Thoroughly <div style={{ fontWeight: 'bold' }}>Modern Woman</div></h1>
-                                <p>Inspired from the Siberian snow, this our new snow white collection.</p>
+                                <p style={{ fontSize: '1.2rem' }}>Inspired from the Siberian snow, this our new snow white collection.</p>
                                 <button>Shop Now</button>
 
                             </div>
                         </div>
-                        <div className={styles['display-right-col']}><img src={womanJpg} alt="woman" /></div>
+                        <div data-aos='fade-left' data-aos-duration="1000" className={styles['display-right-col']}><img src={womanJpg} alt="woman" /></div>
                     </div>
                 }
                 <div className={styles['page-dots']}>

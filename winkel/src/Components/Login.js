@@ -4,10 +4,10 @@ import 'aos/dist/aos.css';
 import * as firebaseAuth from '../config/FirebaseAuth'
 import UserContext from '../Components/UserContext'
 
-
 const Login = (props) => {
 
     const { setUser } = useContext(UserContext);
+
 
     const HandleGoogleSignIn = async (e) => {
         e.preventDefault();

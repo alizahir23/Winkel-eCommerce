@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from '../css/product.module.css'
-import manJpg from '../icons/man.jpg'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import firebase from '../config/Firebase'
+import UserContext from './UserContext'
 
 
 AOS.init();
@@ -13,6 +13,7 @@ const Product = ({ match }) => {
     const [Product, setProduct] = useState(null);
     const [SelectedSize, setSelectedSize] = useState(null);
     const [Quantity, setQuantity] = useState(1);
+    const { User } = useContext(UserContext)
 
     // GETTING DATA
     const db = firebase.firestore();
@@ -21,10 +22,16 @@ const Product = ({ match }) => {
         db.collection('products').doc(match.params.pid).get().then((data) => {
             setProduct(data.data());
             setSelectedSize(data.data().sizes[0]);
-            setLoading(false);
+
         });
 
-    }, [])
+    }, [db, match.params.pid])
+
+    useEffect(() => {
+        if (User && Product) {
+            setLoading(false)
+        }
+    }, [User, Product])
 
 
     // QUANTITY FUNTIONALITY
@@ -63,6 +70,36 @@ const Product = ({ match }) => {
     }
 
 
+    // ADDIGN TO CART
+
+    const addToCart = async () => {
+        const data = await db.collection('users').doc(User.uid).get();
+        const user = data.data();
+        const cart = user.cart;
+
+        if (cart === null || cart === undefined) {
+            db.collection('users').doc(User.uid).set({
+                cart: [{ product: Product, quantity: Quantity, size: SelectedSize.size }]
+            }, { merge: true });
+        } else {
+            var flag = false;
+            cart.forEach((item) => {
+                if (item.product.id === Product.id) {
+                    item.quantity += Quantity;
+
+                    flag = true
+                    return
+                }
+            })
+            if (flag === false) {
+
+                cart.push({ product: Product, quantity: Quantity, size: SelectedSize.size });
+            }
+            db.collection('users').doc(User.uid).set({ cart }, { merge: true });
+            console.log(cart)
+        }
+    }
+
 
     if (Loading) return <div>Loading...</div>
 
@@ -82,7 +119,7 @@ const Product = ({ match }) => {
                         {Product.description}
                     </p>
                     <div className={styles['size-border']}>
-                        <select onChange={handleSize} name="size" id="size">
+                        <select onChange={(e) => { handleSize(e) }} name="size" id="size">
                             {Product.sizes.map((size) => {
 
                                 if (size.quantity > 0) return <option key={size.size} value={size.size}>{size.size}</option>
@@ -97,7 +134,7 @@ const Product = ({ match }) => {
                     </div>
                     <p className={styles.availability}>{SelectedSize.quantity} piece available</p>
                     {Quantity === SelectedSize.quantity && <p style={{ color: 'red', marginTop: '-10px' }}>maximum quantity selected!</p>}
-                    <button className={styles['add-to-cart']}>Add to Cart</button>
+                    <button className={styles['add-to-cart']} onClick={addToCart}>Add to Cart</button>
                 </div>
             </div>
         </div>

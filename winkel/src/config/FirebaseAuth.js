@@ -62,3 +62,16 @@ export const logout = async () => {
         return "Error"
     });
 }
+
+
+export async function verifySecuredToken(token) {
+
+    return jwt.verify(token, process.env.REACT_APP_SECURE_TOKEN_ACCESS_KEY, (err, userData) => {
+        if (err)
+            return null;
+        if (userData.name === (null || undefined) || userData.email === (null || undefined) || userData.uid === (null || undefined))
+            return null;
+
+        return userData;
+    });
+}

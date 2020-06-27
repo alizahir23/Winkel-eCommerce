@@ -16,13 +16,16 @@ const Home = () => {
 
     const [Display, setDisplay] = useState(1);
 
+    var to;
+
     const changeDisplay = (slide) => {
-        if (Display !== slide) setDisplay(slide)
+
+        if (Display !== slide) setDisplay(slide);
+        window.clearTimeout(to);
     }
 
     useEffect(() => {
-
-        setTimeout(() => {
+        to = window.setTimeout(() => {
             Display === 1 ? setDisplay(2) : setDisplay(1);
         }, 6000);
 
@@ -38,7 +41,7 @@ const Home = () => {
             <div className={styles['display']}>
                 {Display === 1 &&
                     <div className={styles['display-slides']}>
-                        <div className={styles['display-left-col']} className={styles['display-left-col-1']}>
+                        <div className={`${styles['display-left-col']} ${styles['display-left-col-1']}`} >
                             <div data-aos="fade-right" data-aos-duration="1000">
 
                                 <h1 style={{ fontSize: '3rem', fontWeight: '500' }}>Catch Your Own <div style={{ fontWeight: 'bold' }}>Stylish Look</div></h1>
@@ -52,7 +55,7 @@ const Home = () => {
                 }
                 {Display === 2 &&
                     <div className={styles['display-slides']}>
-                        <div className={styles['display-left-col']} className={styles['display-left-col-2']}>
+                        <div className={`${styles['display-left-col']} ${styles['display-left-col-2']}`} >
                             <div data-aos="fade-right" data-aos-duration="1000">
 
                                 <h1 style={{ fontSize: '3rem', fontWeight: '500' }}>A Thoroughly <div style={{ fontWeight: 'bold' }}>Modern Woman</div></h1>

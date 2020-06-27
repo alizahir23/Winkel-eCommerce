@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import styles from '../css/header.module.css';
 import phoneSvg from '../icons/phone.svg'
@@ -37,10 +37,9 @@ const Header = () => {
             <div className={styles['bottom-row']}>
                 <h1>WINKEL</h1>
                 <div className={styles['nav-items']}>
-                    <div>HOME</div>
-                    <div>SHOP</div>
-                    <div>ABOUT</div>
-                    <div>CONTACT</div>
+                    <Link to='/' className={styles.link}>HOME</Link>
+                    <Link to='/shop' className={styles.link}>SHOP</Link>
+
                     {!localStorage.getItem('authToken') ? <Link to='/login' onClick={handleClick} className={styles.log}>Login</Link> : <Link to='/' onClick={handleClick} className={styles.log}>Logout</Link>}
                     <div>
                         <img src={cartSvg} alt="cart" /><div />
@@ -55,10 +54,8 @@ const Header = () => {
                 }
                 {IsOpen &&
                     <div className={styles.drawer}>
-                        <div>HOME</div>
-                        <div>SHOP</div>
-                        <div>ABOUT</div>
-                        <div>CONTACT</div>
+                        <Link to='/' className={styles.link}>HOME</Link>
+                        <Link to='/shop' className={styles.link}>SHOP</Link>
                         {!localStorage.getItem('authToken') ? <Link to='/login' onClick={() => {
                             setIsOpen(false);
                             handleClick()

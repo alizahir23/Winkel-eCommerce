@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../css/shop.module.css'
 import firebase from '../config/Firebase'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import UserContext from './UserContext';
 
 AOS.init();
 
@@ -11,20 +12,33 @@ const Shop = () => {
 
     const [Loading, setLoading] = useState(true)
     const [Products, setProducts] = useState(null)
+    const { User } = useContext(UserContext);
+
     const db = firebase.firestore();
-    const storage = firebase.storage();
 
-
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         db.collection('products').get().then((result) => {
             setProducts(result.docs);
             setLoading(false)
-
         });
-    }, [])
+    }, [db])
 
+    // ADDING TO CART
 
+    const addToCart = (product) => {
+        db.collection('users').doc(User.uid).get().then(data => {
+            const resultData = data.data();
+            if (resultData.cart === null || resultData.cart === undefined) {
+                db.collection('users').doc(User.uid).set({ cart: [{ product: [product], quantity: 1 }] }, { merge: true })
+            } else {
+                const updatedCart = resultData.cart;
+                updatedCart.push({ product: [product], quantity: 1 });
+                db.collection('users').doc(User.uid).set({ cart: updatedCart }, { merge: true })
+            }
+        })
+
+    }
 
     return (
         <div style={{ backgroundColor: '#f7f7f7' }}>
@@ -75,9 +89,14 @@ const Shop = () => {
                     {Products && Products.map(product => {
 
                         return (
-                            <div className={styles.card} data-aos='fade-up' data-aos-duration='800'>
+                            <div key={product.data().name} className={styles.card} data-aos='fade-up' data-aos-duration='800'>
                                 <div>
-                                    <button>ADD TO CART</button>
+                                    {/* <button onClick={() => {
+                                        const productData = product.data();
+                                        addToCart(productData);
+                                    }}>
+                                        ADD TO CART
+                                    </button> */}
                                     <div style={{ backgroundImage: `url(${product.data().image}` }}></div>
                                 </div>
                                 <Link style={{ textDecoration: 'none' }} to={`/shop/${product.data().id}`}><h3>{product.data().name}</h3></Link>
